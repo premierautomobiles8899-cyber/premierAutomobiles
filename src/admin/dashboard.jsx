@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import Navbar from './navbar';
 import Sidebar from './sidebar';
 import { collection, getDocs, orderBy, query } from 'firebase/firestore';
@@ -31,7 +31,7 @@ const customStyles = {
 
 const Export = ({ onExport }) => (
   <button
-    className='bg-green-600 text-white rounded px-5 py-1.5 text-sm'
+    className="bg-green-600 text-white rounded px-5 py-1.5 text-sm"
     onClick={onExport}
   >
     Export to Excel
@@ -39,7 +39,7 @@ const Export = ({ onExport }) => (
 );
 
 function Dashboard() {
-  const { city } = useParams(); // Get 'hyderabad' or 'khammam' from URL
+  const { city } = useParams();
   const selectedCity = city?.toUpperCase() || 'ALL';
 
   const [active, setActive] = useState(true);
@@ -88,7 +88,8 @@ function Dashboard() {
     fetchData();
   }, []);
 
-  const downloadExcel = () => {
+  // ✅ Wrap in useCallback so ESLint is satisfied and ref is stable
+  const downloadExcel = useCallback(() => {
     const formatted = filteredData.map((row, index) => ({
       ID: index + 1,
       Name: row.name,
@@ -114,12 +115,10 @@ function Dashboard() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-  };
+  }, [filteredData]); // ✅ depends on filteredData only
 
-  const actionsMemo = useMemo(
-    () => <Export onExport={downloadExcel} />,
-    [filteredData]
-  );
+  // ✅ Now actionsMemo can safely depend on downloadExcel
+  const actionsMemo = useMemo(() => <Export onExport={downloadExcel} />, [downloadExcel]);
 
   const columns = [
     {
@@ -142,7 +141,7 @@ function Dashboard() {
   function formatTimestamp(timestamp) {
     if (!timestamp?.seconds) return 'Invalid date';
     const date = new Date(timestamp.seconds * 1000);
-    return date.toLocaleDateString('en-CA'); // YYYY-MM-DD
+    return date.toLocaleDateString('en-CA');
   }
 
   useEffect(() => {
@@ -159,14 +158,13 @@ function Dashboard() {
         item.mobile?.toLowerCase().includes(search.toLowerCase());
 
       const matchDate = (!from || itemDate >= from) && (!to || itemDate <= to);
-
       const matchCity =
         selectedCity === 'ALL' || item.city?.toUpperCase() === selectedCity;
 
       return matchSearch && matchDate && matchCity;
     });
 
-    // ✅ Deduplicate again after filtering (safety check)
+    // ✅ Deduplicate again after filtering (safety)
     result = result.filter(
       (lead, index, self) =>
         index ===
@@ -181,17 +179,17 @@ function Dashboard() {
   }, [search, fromDate, toDate, selectedCity, data]);
 
   return (
-    <div className='flex flex-row h-screen'>
+    <div className="flex flex-row h-screen">
       <Sidebar active={active} />
-      <div className='flex-auto overflow-auto bg-gray-50'>
+      <div className="flex-auto overflow-auto bg-gray-50">
         <Navbar handleActive={handleActive} />
-        <div className='mx-5 mt-5'>
+        <div className="mx-5 mt-5">
           {loading ? (
-            <div className='text-center'>
+            <div className="text-center">
               <CgSpinner
-                className='flex mx-auto animate-spin'
+                className="flex mx-auto animate-spin"
                 size={50}
-                color='#7e22ce'
+                color="#7e22ce"
               />
             </div>
           ) : (
@@ -205,13 +203,13 @@ function Dashboard() {
               selectableRows
               selectableRowsHighlight
               fixedHeader
-              fixedHeaderScrollHeight='100vh'
+              fixedHeaderScrollHeight="100vh"
               customStyles={customStyles}
               highlightOnHover
               subHeader
               actions={actionsMemo}
               subHeaderComponent={
-                <div className='flex flex-col items-center gap-4 mb-3 sm:flex-row'>
+                <div className="flex flex-col items-center gap-4 mb-3 sm:flex-row">
                   <SearchComponent search={search} setSearch={setSearch} />
                   <DateRangeFilter
                     fromDate={fromDate}
@@ -231,32 +229,32 @@ function Dashboard() {
 
 const SearchComponent = ({ search, setSearch }) => (
   <input
-    className='px-4 py-2 border-2 rounded focus:outline-none'
-    type='text'
-    placeholder='Search by name, phone or email'
+    className="px-4 py-2 border-2 rounded focus:outline-none"
+    type="text"
+    placeholder="Search by name, phone or email"
     value={search}
     onChange={(e) => setSearch(e.target.value)}
   />
 );
 
 const DateRangeFilter = ({ fromDate, toDate, setFromDate, setToDate }) => (
-  <div className='flex items-center gap-3'>
+  <div className="flex items-center gap-3">
     <div>
-      <label className='mr-2 text-sm'>From:</label>
+      <label className="mr-2 text-sm">From:</label>
       <input
-        type='date'
+        type="date"
         value={fromDate}
         onChange={(e) => setFromDate(e.target.value)}
-        className='px-2 py-1 border-2 rounded'
+        className="px-2 py-1 border-2 rounded"
       />
     </div>
     <div>
-      <label className='mr-2 text-sm'>To:</label>
+      <label className="mr-2 text-sm">To:</label>
       <input
-        type='date'
+        type="date"
         value={toDate}
         onChange={(e) => setToDate(e.target.value)}
-        className='px-2 py-1 border-2 rounded'
+        className="px-2 py-1 border-2 rounded"
       />
     </div>
   </div>
