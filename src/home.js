@@ -53,8 +53,9 @@ const InterestForm = () => {
 
     let newErrors = {};
     if (!form.name.trim()) newErrors.name = 'Name is required';
-    if (!form.mobile.trim() || !/^\d{10}$/.test(form.mobile))
-      newErrors.mobile = 'Valid 10-digit mobile number is required';
+if (!form.mobile.trim() || !/^[6-9]\d{9}$/.test(form.mobile))
+  newErrors.mobile = 'Enter a valid 10-digit mobile number starting with 6–9';
+
     if (!form.city) newErrors.city = 'Please select a city';
     if (!form.model) newErrors.model = 'Please select a car model';
     if (form.email && !/\S+@\S+\.\S+/.test(form.email))
@@ -145,6 +146,8 @@ const InterestForm = () => {
                 name='mobile'
                 placeholder='Mobile Number'
                 value={form.mobile}
+                maxLength={10}
+                minLength={10}
                 disabled={loading}
                 onChange={handleChange}
                 className='w-full px-4 py-2 text-sm text-center text-black bg-transparent border-b-2 border-black sm:text-base focus:outline-none'
