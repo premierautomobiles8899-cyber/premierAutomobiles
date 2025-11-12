@@ -12,10 +12,8 @@ import {
   Facebook,
   Home,
   Instagram,
-  Linkedin,
   Mail,
   Phone,
-  Twitter,
 } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -53,8 +51,9 @@ const InterestForm = () => {
 
     let newErrors = {};
     if (!form.name.trim()) newErrors.name = 'Name is required';
-if (!form.mobile.trim() || !/^[6-9]\d{9}$/.test(form.mobile))
-  newErrors.mobile = 'Enter a valid 10-digit mobile number starting with 6–9';
+    if (!form.mobile.trim() || !/^[6-9]\d{9}$/.test(form.mobile))
+      newErrors.mobile =
+        'Enter a valid 10-digit mobile number starting with 6–9';
 
     if (!form.city) newErrors.city = 'Please select a city';
     if (!form.model) newErrors.model = 'Please select a car model';
@@ -94,7 +93,7 @@ if (!form.mobile.trim() || !/^[6-9]\d{9}$/.test(form.mobile))
           <Link to='/'>
             <img
               src={logo}
-              alt='Hyundai Logo'
+              alt=' Logo'
               className='h-auto w-28 sm:w-full sm:h-50 md:w-40 lg:w-full lg:h-10'
             />
           </Link>
@@ -110,7 +109,7 @@ if (!form.mobile.trim() || !/^[6-9]\d{9}$/.test(form.mobile))
       </nav>
 
       <img
-        src='/images/desktop2.jpg'
+        src='/images/Premier_Automobiles_Banner.jpg'
         alt='Banner'
         className='hidden object-cover w-full mt-12 sm:block'
       />
@@ -324,9 +323,7 @@ export const Footer = () => {
       <div className='grid max-w-6xl grid-cols-1 gap-8 px-6 mx-auto md:grid-cols-4'>
         {/* Logo & Address */}
         <div>
-          <h2 className='text-2xl font-bold text-red-600'>
-            Motorcycles
-          </h2>
+          <h2 className='text-2xl font-bold text-red-600'>Motorcycles</h2>
           <p className='flex items-start gap-2 mt-2 text-gray-300'>
             <Home className='w-5 h-5 mt-1' />
             <span>
@@ -340,18 +337,16 @@ export const Footer = () => {
         <div>
           <h3 className='mb-3 text-lg font-semibold text-white'>Bikes</h3>
           <ul className='space-y-2'>
-            {[
-              'Aprilia Scooters',
-              'Vespa Scooters',
-              'Aprilia Motorcycles',
-            ].map((bike, index) => (
-              <li
-                key={index}
-                className='pb-1 transition border-b border-gray-700 hover:text-red-500'
-              >
-                {bike}
-              </li>
-            ))}
+            {['Aprilia Scooters', 'Vespa Scooters', 'Aprilia Motorcycles'].map(
+              (bike, index) => (
+                <li
+                  key={index}
+                  className='pb-1 transition border-b border-gray-700 hover:text-red-500'
+                >
+                  {bike}
+                </li>
+              )
+            )}
           </ul>
         </div>
 
@@ -425,9 +420,9 @@ export const Footer = () => {
             <Mail className='w-5 h-5' />
             <a
               className='hover:text-red-500'
-              href='mailto:premier3automobiles@gmail.com'
+              href='mailto:info@premierautomobiles.in'
             >
-              premier3automobiles@gmail.com
+              info@premierautomobiles.in
             </a>
           </p>
         </div>
