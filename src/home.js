@@ -23,6 +23,7 @@ import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { CgSpinner } from 'react-icons/cg';
 import PremiumBikesCarousel from './OffersCarousel';
+import PremiumOffersCarousel2 from './offerCarousel2';
 // import Navbar from './components/Navbar';
 
 // import Popup from "./popup";
@@ -87,7 +88,7 @@ const InterestForm = () => {
   return (
     <>
       <ToastContainer position='top-center' autoClose={5000} theme='dark' />
-      <nav className='fixed top-0 left-0 z-50 w-full shadow-md bg-white/30 backdrop-blur-md'>
+      <nav className='fixed top-0 left-0 w-full shadow-md z-90 bg-white/30 backdrop-blur-md'>
         <div className='flex items-center justify-between px-4 py-3 md:px-10 lg:px-16'>
           {/* Logo */}
           <Link to='/'>
@@ -109,12 +110,12 @@ const InterestForm = () => {
       </nav>
 
       <img
-        src='/images/Premier_Automobiles_Banner.jpg'
+        src='/images/banner4.jpg'
         alt='Banner'
         className='hidden object-cover w-full mt-12 sm:block'
       />
       <img
-        src='/images/mobilebanner2.jpg'
+        src='/images/mobileBanner.jpg'
         alt='Mobile Banner'
         className='block object-cover w-full mt-12 sm:hidden'
       />
@@ -212,7 +213,8 @@ const InterestForm = () => {
         </div>
       </div>
 
-      <PremiumBikesCarousel />
+      {/* <PremiumBikesCarousel /> */}
+      <PremiumOffersCarousel2 />
       <BikeShowcase />
       <BikeFeaturesSection />
       <Footer />
