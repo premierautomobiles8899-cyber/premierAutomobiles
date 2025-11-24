@@ -237,7 +237,7 @@ export default function PremiumOffersCarousel2() {
 
         {/* Swiper */}
         <Swiper
-          modules={[Navigation, Autoplay]}
+          modules={[Navigation]}
           onSwiper={setSwiperInstance}
           spaceBetween={25}
           slidesPerView={1}
