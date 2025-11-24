@@ -140,17 +140,17 @@ const bikeOffers = [
       },
     ],
   },
-  {
-    name: 'Vespa Racing Sixties 150',
-    colors: [
-      {
-        name: 'Black',
-        code: '#F2F4F5',
-        image:
-          'https://i0.wp.com/premierautomobiles.in/wp-content/uploads/2022/06/125Racing.jpg?w=600&ssl=1',
-      },
-    ],
-  },
+  // {
+  //   name: 'Vespa Racing Sixties 150',
+  //   colors: [
+  //     {
+  //       name: 'Black',
+  //       code: '#F2F4F5',
+  //       image:
+  //         'https://i0.wp.com/premierautomobiles.in/wp-content/uploads/2022/06/125Racing.jpg?w=600&ssl=1',
+  //     },
+  //   ],
+  // },
 ];
 
 /* 🚨 Bike Card Component */
