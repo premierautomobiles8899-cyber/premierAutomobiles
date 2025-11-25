@@ -82,7 +82,7 @@ export default function PrivacyPolicy() {
           </h2>
           <p className='leading-relaxed text-gray-700'>
             For any queries regarding this policy, email us at:
-            <strong> support@premierautomobiles.com</strong>
+            <strong> support@premierautomobiles.in</strong>
           </p>
 
           <p className='mt-10 text-sm text-center text-gray-600'>
