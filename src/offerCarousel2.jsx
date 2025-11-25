@@ -219,7 +219,7 @@ export default function PremiumOffersCarousel2() {
   return (
     <section className='relative bg-gradient-to-b from-black via-[#111] to-[#0a0a0a] py-16 overflow-hidden text-white z-40'>
       {/* Decorative BG */}
-      <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] bg-cover bg-center"></div>
+      <div className="  absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] bg-cover bg-center"></div>
 
       {/* Title */}
       <h2 className='relative mb-10 text-4xl font-extrabold tracking-wider text-center text-transparent uppercase bg-gradient-to-r from-red-600 to-orange-500 bg-clip-text'>

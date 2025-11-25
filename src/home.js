@@ -88,7 +88,7 @@ const InterestForm = () => {
   return (
     <>
       <ToastContainer position='top-center' autoClose={5000} theme='dark' />
-      <nav className='fixed top-0 left-0 w-full shadow-md z-90 bg-white/30 backdrop-blur-md'>
+      <nav className='fixed top-0 left-0 z-40 w-full shadow-md z-90 bg-white/30 backdrop-blur-md'>
         <div className='flex items-center justify-between px-4 py-3 md:px-10 lg:px-16'>
           {/* Logo */}
           <Link to='/'>
@@ -433,11 +433,11 @@ export const Footer = () => {
       {/* Bottom Bar */}
       <div className='pt-4 mt-6 text-sm text-center text-gray-400 border-t border-gray-800'>
         <p>
-          <a href='/' className='hover:text-red-500'>
+          <a href='/terms-conditions' className='hover:text-red-500'>
             Terms & Conditions
           </a>{' '}
           |{' '}
-          <a href='/PrivacyPolicy' className='hover:text-red-500'>
+          <a href='/privacyPolicy' className='hover:text-red-500'>
             Privacy Policy
           </a>
         </p>
