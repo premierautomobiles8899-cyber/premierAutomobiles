@@ -224,96 +224,171 @@ const InterestForm = () => {
 
 export default InterestForm;
 
-const bikeColors = [
-  {
-    name: 'RACING TRIPES',
-    code: '#000000',
-    img: '/images/rs_457_inner_banner1.webp',
+// -----------------------------
+// COLOR DATA FOR BOTH BIKES
+// -----------------------------
+const bikeData = {
+  tuono457: {
+    title: 'Aprilia Tuono 457',
+    tagline: 'Unleash the Street Fighter',
+    description:
+      'The Tuono 457 combines unmatched aggression with precision handling. Built for thrill-seekers, it delivers brutal street performance with iconic Tuono DNA and advanced riding dynamics.',
+    brochureLink: '/images/tuono_specs.pdf',
+    colors: [
+      {
+        name: 'PUMA GRAY',
+        code: '#CACACA',
+        img: '/images/aprilia_tuono_457_inner_banner_grey.png',
+      },
+      {
+        name: 'PIRANHA RED',
+        code: '#FF0505',
+        img: '/images/aprilia_tuono_457_inner_banner_red.png',
+      },
+    ],
   },
-  {
-    name: 'OPALESCENT LIGHT',
-    code: '#E0E0E0',
-    img: '/images/rs_457_inner_banner2.webp',
+  rs457: {
+    title: 'Aprilia RS 457',
+    tagline: 'Born to Rule the Streets',
+    description:
+      'Inspired by the legendary RS series, the all-new Aprilia RS 457 combines Italian design, advanced technology, and track performance. Lightweight, powerful, and ready to conquer every corner.',
+    brochureLink: '/images/Aprilia-RS457-New-Brochure.pdf',
+    colors: [
+      {
+        name: 'RACING STRIPES',
+        code: '#000000',
+        img: '/images/rs_457_inner_banner1.webp',
+      },
+      {
+        name: 'OPALESCENT LIGHT',
+        code: '#E0E0E0',
+        img: '/images/rs_457_inner_banner2.webp',
+      },
+      {
+        name: 'PRISMATIC DARK',
+        code: '#687559',
+        img: '/images/rs_457_inner_banner3.webp',
+      },
+    ],
   },
-  {
-    name: 'PRISMATIC DARK',
-    code: '#687559',
-    img: '/images/rs_457_inner_banner3.webp',
-  },
-];
+};
 
 export function BikeShowcase() {
-  const [selectedBike, setSelectedBike] = useState(bikeColors[0]);
+  const [selectedModel, setSelectedModel] = useState('rs457');
+  const [selectedColor, setSelectedColor] = useState(bikeData.rs457.colors[0]);
+
+  const bike = bikeData[selectedModel];
+
+  const handleModelSwitch = (model) => {
+    setSelectedModel(model);
+    setSelectedColor(bikeData[model].colors[0]); // reset to first color
+  };
 
   return (
     <section className='bg-gradient-to-b from-white to-gray-100 px-6 sm:px-10 py-16 relative max-w-[1400px] mx-auto overflow-hidden'>
+      {/* ----------------------------- */}
+      {/* Bike Tabs (RS 457 | Tuono 457) */}
+      {/* ----------------------------- */}
+      <div className='flex justify-center gap-4 mb-10'>
+        {[
+          { key: 'rs457', label: 'Aprilia RS 457' },
+          { key: 'tuono457', label: 'Aprilia Tuono 457' },
+        ].map(({ key, label }) => (
+          <button
+            key={key}
+            onClick={() => handleModelSwitch(key)}
+            className={`px-4 py-2 text-sm sm:text-base font-semibold rounded-full transition ${
+              selectedModel === key
+                ? 'bg-red-600 text-white shadow-md'
+                : 'bg-white border text-gray-700 hover:bg-gray-200'
+            }`}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+
+      {/* ----------------------------- */}
+      {/* MAIN CONTENT ROW             */}
+      {/* ----------------------------- */}
       <div className='flex flex-col items-center justify-between gap-10 lg:flex-row'>
-        {/* Text Section */}
+        {/* TEXT SECTION */}
         <div className='px-4 text-center lg:w-1/2 lg:text-left'>
           <h2 className='text-3xl font-bold text-gray-900 uppercase sm:text-4xl md:text-5xl'>
-            Aprilia RS 457
+            {bike.title}
           </h2>
+
           <p className='mt-3 text-lg font-semibold text-gray-700'>
-            Born to Rule the Streets
-          </p>
-          <p className='max-w-lg mx-auto mt-4 text-gray-500 lg:mx-0'>
-            Inspired by the legendary RS series, the all-new Aprilia RS 457
-            combines Italian design, advanced technology, and track performance.
-            Lightweight, powerful, and ready to conquer every corner.
+            {bike.tagline}
           </p>
 
-          {/* Buttons */}
+          <p className='max-w-lg mx-auto mt-4 text-gray-500 lg:mx-0'>
+            {bike.description}
+          </p>
+
+          {/* BUTTONS */}
           <div className='flex flex-col items-center gap-4 mt-6 sm:flex-row lg:items-start'>
-            <button className='px-6 py-2 font-semibold text-red-500 transition border border-red-500 rounded-lg hover:bg-red-500 hover:text-white'>
+            <a
+              href={bike.brochureLink}
+              className='px-6 py-2 font-semibold text-red-600 transition border border-red-600 rounded-lg hover:bg-red-600 hover:text-white'
+            >
               Download Brochure
-            </button>
+            </a>
+
             <a
               href='/'
-              className='flex items-center text-lg font-medium text-red-500 hover:underline'
+              className='flex items-center text-lg font-medium text-red-600 hover:underline'
             >
               Book a Test Ride <span className='ml-2'>→</span>
             </a>
           </div>
         </div>
 
-        {/* Bike Image Section */}
+        {/* ----------------------------- */}
+        {/* BIKE IMAGE SECTION            */}
+        {/* ----------------------------- */}
         <div className='relative flex justify-center mt-8 lg:w-1/2 lg:mt-0'>
-          {/* Background Glow */}
+          {/* GLOW BEHIND BIKE */}
           <div
-            className='absolute top-1/2 -translate-y-1/2 w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] lg:w-[500px] lg:h-[440px] rounded-full blur-3xl opacity-60 -z-10'
-            style={{ backgroundColor: selectedBike.code }}
+            className='absolute top-1/2 -translate-y-1/2 w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] lg:w-[500px] lg:h-[440px] 
+                       rounded-full blur-3xl opacity-60 -z-10 transition-all duration-500'
+            style={{ backgroundColor: selectedColor.code }}
           ></div>
 
-          {/* Bike Image */}
+          {/* BIKE IMAGE */}
           <img
-            src={selectedBike.img}
-            alt={`Aprilia RS 457 - ${selectedBike.name}`}
-            className='w-[90%] sm:w-[75%] lg:w-[90%] max-w-lg drop-shadow-2xl'
+            key={selectedColor.img}
+            src={selectedColor.img}
+            alt={`${bike.title} - ${selectedColor.name}`}
+            className='w-[90%] sm:w-[75%] lg:w-[90%] max-w-lg drop-shadow-2xl transition-all duration-500 scale-105'
           />
         </div>
       </div>
 
-      {/* Color Selector */}
+      {/* ----------------------------- */}
+      {/* COLOR SELECTOR                */}
+      {/* ----------------------------- */}
       <div className='flex justify-center mt-8 space-x-4'>
-        {bikeColors.map((bike) => (
+        {bike.colors.map((color) => (
           <button
-            key={bike.name}
-            className={`w-8 h-8 rounded-full border-2 transition-transform duration-300 focus:ring focus:ring-gray-300 ${
-              selectedBike.name === bike.name
-                ? 'border-black scale-110 ring-2 ring-black'
-                : 'border-gray-400 hover:scale-105'
-            }`}
-            style={{ backgroundColor: bike.code }}
-            onClick={() => setSelectedBike(bike)}
-            aria-label={`Select ${bike.name} color`}
+            key={color.name}
+            className={`w-8 h-8 rounded-full border-2 transition-transform duration-300 
+              ${
+                selectedColor.name === color.name
+                  ? 'border-black scale-110 ring-2 ring-black'
+                  : 'border-gray-400 hover:scale-105'
+              }`}
+            style={{ backgroundColor: color.code }}
+            onClick={() => setSelectedColor(color)}
+            aria-label={`Select ${color.name}`}
           ></button>
         ))}
       </div>
 
-      {/* Bike Name */}
+      {/* Selected Color Text */}
       <p className='mt-4 font-medium text-center text-gray-700'>
         Selected Color:{' '}
-        <span className='font-semibold text-black'>{selectedBike.name}</span>
+        <span className='font-semibold text-black'>{selectedColor.name}</span>
       </p>
     </section>
   );
